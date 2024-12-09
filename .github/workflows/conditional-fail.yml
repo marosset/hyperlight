@@ -1,0 +1,11 @@
+name: Conditional Job - Always Fail
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  fail_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Always Fail Step
+        run: exit 1
