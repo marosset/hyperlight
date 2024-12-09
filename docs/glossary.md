@@ -63,3 +63,6 @@ A workload is the code that the [host application](#host-application) wants to e
 ## Sandbox
 
 A Sandbox is the abstraction used in Hyperlight to represent the isolated environment in which a workload is executed. A sandbox is used to create, configure, execute and destroy a [micro virtual machine](#micro-virtual-machine) that runs a [guest](#guest) workload. Sandboxes are created by the [host application](#host-application) using the Hyperlight host library.
+
+
+adsfasdlkfjasdf
