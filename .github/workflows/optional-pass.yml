@@ -1,0 +1,11 @@
+name: Optional Job - Always Pass
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  pass_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Always Fail Step
+        run: exit 0
