@@ -136,7 +136,7 @@ pub fn guest_dispatch_function(function_call: FunctionCall) -> Result<Vec<u8>> {
         ErrorCode::GuestFunctionNotFound,
         function_name,
     ));
-}
+}asdfasdfasdfsadfsafd
 ```
 
 For additional examples of using the Hyperlight host Rust library, see
