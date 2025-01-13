@@ -111,7 +111,7 @@ impl HypervLinuxDriver {
             // here, because otherwise the partition is set up with a SynIC.
 
             let vm_fd = mshv.create_vm_with_args(&pr)?;
-            vm_fd.initialise()?;
+            vm_fd.initialize()?;
             let features: hv_partition_synthetic_processor_features = Default::default();
             vm_fd.hvcall_set_partition_property(
                 hv_partition_property_code_HV_PARTITION_PROPERTY_SYNTHETIC_PROC_FEATURES,
