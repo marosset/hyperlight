@@ -65,6 +65,7 @@ impl ErrorCode {
     pub const GuestFunctionParameterTypeMismatch: Self = Self(14);
     pub const GuestError: Self = Self(15);
     pub const ArrayLengthParamIsMissing: Self = Self(16);
+    pub const ControlFlowGuardInvalidFunction: Self = Self(17);
 
     pub const ENUM_MIN: u64 = 0;
     pub const ENUM_MAX: u64 = 16;
@@ -85,6 +86,7 @@ impl ErrorCode {
         Self::GuestFunctionParameterTypeMismatch,
         Self::GuestError,
         Self::ArrayLengthParamIsMissing,
+        Self::ControlFlowGuardInvalidFunction,
     ];
     /// Returns the variant's name or "" if unknown.
     pub fn variant_name(self) -> Option<&'static str> {
@@ -107,6 +109,7 @@ impl ErrorCode {
             Self::GuestFunctionParameterTypeMismatch => Some("GuestFunctionParameterTypeMismatch"),
             Self::GuestError => Some("GuestError"),
             Self::ArrayLengthParamIsMissing => Some("ArrayLengthParamIsMissing"),
+            Self::ControlFlowGuardInvalidFunction => Some("ControlFlowGuardInvalidFunction"),
             _ => None,
         }
     }

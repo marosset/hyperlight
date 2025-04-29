@@ -47,6 +47,7 @@ pub mod memory;
 pub mod print;
 pub(crate) mod security_check;
 pub mod setjmp;
+pub mod cfguard;
 
 pub mod chkstk;
 pub mod error;

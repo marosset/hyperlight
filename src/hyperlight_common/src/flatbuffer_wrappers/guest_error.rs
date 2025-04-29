@@ -48,6 +48,7 @@ pub enum ErrorCode {
     GuestFunctionParameterTypeMismatch = 14,
     GuestError = 15,
     ArrayLengthParamIsMissing = 16,
+    ControlFlowGuardInvalidFunction = 17,
 }
 
 impl From<ErrorCode> for FbErrorCode {
@@ -73,6 +74,7 @@ impl From<ErrorCode> for FbErrorCode {
             }
             ErrorCode::GuestError => Self::GuestError,
             ErrorCode::ArrayLengthParamIsMissing => Self::ArrayLengthParamIsMissing,
+            ErrorCode::ControlFlowGuardInvalidFunction => Self::ControlFlowGuardInvalidFunction,
         }
     }
 }
@@ -99,6 +101,7 @@ impl From<FbErrorCode> for ErrorCode {
             }
             FbErrorCode::GuestError => Self::GuestError,
             FbErrorCode::ArrayLengthParamIsMissing => Self::ArrayLengthParamIsMissing,
+            FbErrorCode::ControlFlowGuardInvalidFunction => Self::ControlFlowGuardInvalidFunction,
             _ => Self::UnknownError,
         }
     }
@@ -123,6 +126,7 @@ impl From<u64> for ErrorCode {
             14 => Self::GuestFunctionParameterTypeMismatch,
             15 => Self::GuestError,
             16 => Self::ArrayLengthParamIsMissing,
+            17 => Self::ControlFlowGuardInvalidFunction,
             _ => Self::UnknownError,
         }
     }
@@ -147,6 +151,7 @@ impl From<ErrorCode> for u64 {
             ErrorCode::GuestFunctionParameterTypeMismatch => 14,
             ErrorCode::GuestError => 15,
             ErrorCode::ArrayLengthParamIsMissing => 16,
+            ErrorCode::ControlFlowGuardInvalidFunction => 17,
         }
     }
 }
@@ -174,6 +179,7 @@ impl From<ErrorCode> for String {
             }
             ErrorCode::GuestError => "GuestError".to_string(),
             ErrorCode::ArrayLengthParamIsMissing => "ArrayLengthParamIsMissing".to_string(),
+            ErrorCode::ControlFlowGuardInvalidFunction => "ControlFlowGuardInvalidFunction".to_string(),
         }
     }
 }
