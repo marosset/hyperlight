@@ -47,7 +47,11 @@ jobs:
           matrix.cpu)) }} 
     steps:
       - uses: actions/checkout@v4
-      
+
+      - name: temp
+        shell: powershell
+        run: |
+          echo $Env:Path
 
       # For rust-fmt 
       - name: Set up nightly rust 
