@@ -52,7 +52,15 @@ jobs:
         if: ${{ (runner.os == 'Windows' )}}
         shell: powershell
         run: |
-          echo $Env:Path
+          cmd /c set
+
+      - name: temp
+        if: ${{ (runner.os == 'Windows' )}}
+        shell: bash
+        run: |
+          env
+
+        
 
       # For rust-fmt 
       - name: Set up nightly rust 
