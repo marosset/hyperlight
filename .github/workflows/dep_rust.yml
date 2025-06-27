@@ -75,6 +75,7 @@ jobs:
       - name: clippy exhaustive check
         if: ${{ (runner.os == 'Linux' )}}
         run: |
+          sudo apt-get install -y jq
           just clippy-exhaustive ${{ matrix.config }}
 
       # Does not check for updated Cargo.lock files for test rust guests as this causes an issue with this checkwhen deoendabot updates dependencies in common crates
