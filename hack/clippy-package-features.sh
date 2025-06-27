@@ -46,10 +46,10 @@ echo "Testing $PACKAGE with default features..."
 for feature in $features; do
     if [[ -n "$REQUIRED_FEATURES" ]]; then
         echo "Testing $PACKAGE with feature: $REQUIRED_FEATURES,$feature"
-        (set -x; cargo clippy -p "$PACKAGE" --all-targets --no-default-features --features "$REQUIRED_FEATURES,$feature" --profile="$PROFILE" -- -D warnings || echo "Feature $feature failed for $PACKAGE")
+        (set -x; cargo clippy -p "$PACKAGE" --all-targets --no-default-features --features "$REQUIRED_FEATURES,$feature" --profile="$PROFILE" -- -D warnings)
     else
         echo "Testing $PACKAGE with feature: $feature"
-        (set -x; cargo clippy -p "$PACKAGE" --all-targets --no-default-features --features "$feature" --profile="$PROFILE" -- -D warnings || echo "Feature $feature failed for $PACKAGE")
+        (set -x; cargo clippy -p "$PACKAGE" --all-targets --no-default-features --features "$feature" --profile="$PROFILE" -- -D warnings)
     fi
 done
 
@@ -58,9 +58,9 @@ if [[ -n "$features" ]]; then
     all_features=$(echo $features | tr '\n' ',' | sed 's/,$//')
     if [[ -n "$REQUIRED_FEATURES" ]]; then
         echo "Testing $PACKAGE with all features: $REQUIRED_FEATURES,$all_features"
-        (set -x; cargo clippy -p "$PACKAGE" --all-targets --no-default-features --features "$REQUIRED_FEATURES,$all_features" --profile="$PROFILE" -- -D warnings || echo "All features failed for $PACKAGE")
+        (set -x; cargo clippy -p "$PACKAGE" --all-targets --no-default-features --features "$REQUIRED_FEATURES,$all_features" --profile="$PROFILE" -- -D warnings)
     else
         echo "Testing $PACKAGE with all features: $all_features"
-        (set -x; cargo clippy -p "$PACKAGE" --all-targets --no-default-features --features "$all_features" --profile="$PROFILE" -- -D warnings || echo "All features failed for $PACKAGE")
+        (set -x; cargo clippy -p "$PACKAGE" --all-targets --no-default-features --features "$all_features" --profile="$PROFILE" -- -D warnings)
     fi
 fi
