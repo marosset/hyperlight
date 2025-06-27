@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# filepath: /home/marosset/src/github.com/marosset/hyperlight/hack/clippy-package-features.sh
 
 set -euo pipefail
 
