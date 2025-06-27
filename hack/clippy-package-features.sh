@@ -20,7 +20,11 @@ if [[ "$PACKAGE" == "hyperlight-host" ]]; then
     REQUIRED_FEATURES="kvm,mshv3"
     # Get all features for the package (excluding default and required features)
     features=$(cargo metadata --format-version 1 --no-deps | jq -r ".packages[] | select(.name == \"$PACKAGE\") | .features | keys[]" | grep -v -E "^(default|kvm|mshv3)$" || true)
-else
+elif [[ "$PACKAGE" == "hyperlight-guest-bin" ]]; then
+    REQUIRED_FEATURES="printf"
+    # Get all features for the package (excluding default and required features)
+    features=$(cargo metadata --format-version 1 --no-deps | jq -r ".packages[] | select(.name == \"$PACKAGE\") | .features | keys[]" | grep -v -E "^(default|printf)$" || true)
+else 
     REQUIRED_FEATURES=""
     # Get all features for the package (excluding default)
     features=$(cargo metadata --format-version 1 --no-deps | jq -r ".packages[] | select(.name == \"$PACKAGE\") | .features | keys[]" | grep -v "^default$" || true)
@@ -29,23 +33,23 @@ fi
 # Test with minimal features
 if [[ -n "$REQUIRED_FEATURES" ]]; then
     echo "Testing $PACKAGE with required features only ($REQUIRED_FEATURES)..."
-    cargo clippy -p "$PACKAGE" --all-targets --no-default-features --features "$REQUIRED_FEATURES" --profile="$PROFILE" -- -D warnings
+    (set -x; cargo clippy -p "$PACKAGE" --all-targets --no-default-features --features "$REQUIRED_FEATURES" --profile="$PROFILE" -- -D warnings)
 else
     echo "Testing $PACKAGE with no features..."
-    cargo clippy -p "$PACKAGE" --all-targets --no-default-features --profile="$PROFILE" -- -D warnings
+    (set -x; cargo clippy -p "$PACKAGE" --all-targets --no-default-features --profile="$PROFILE" -- -D warnings)
 fi
 
 echo "Testing $PACKAGE with default features..."
-cargo clippy -p "$PACKAGE" --all-targets --profile="$PROFILE" -- -D warnings
+(set -x; cargo clippy -p "$PACKAGE" --all-targets --profile="$PROFILE" -- -D warnings)
 
 # Test each additional feature individually
 for feature in $features; do
     if [[ -n "$REQUIRED_FEATURES" ]]; then
         echo "Testing $PACKAGE with feature: $REQUIRED_FEATURES,$feature"
-        cargo clippy -p "$PACKAGE" --all-targets --no-default-features --features "$REQUIRED_FEATURES,$feature" --profile="$PROFILE" -- -D warnings || echo "Feature $feature failed for $PACKAGE"
+        (set -x; cargo clippy -p "$PACKAGE" --all-targets --no-default-features --features "$REQUIRED_FEATURES,$feature" --profile="$PROFILE" -- -D warnings || echo "Feature $feature failed for $PACKAGE")
     else
         echo "Testing $PACKAGE with feature: $feature"
-        cargo clippy -p "$PACKAGE" --all-targets --no-default-features --features "$feature" --profile="$PROFILE" -- -D warnings || echo "Feature $feature failed for $PACKAGE"
+        (set -x; cargo clippy -p "$PACKAGE" --all-targets --no-default-features --features "$feature" --profile="$PROFILE" -- -D warnings || echo "Feature $feature failed for $PACKAGE")
     fi
 done
 
@@ -54,9 +58,9 @@ if [[ -n "$features" ]]; then
     all_features=$(echo $features | tr '\n' ',' | sed 's/,$//')
     if [[ -n "$REQUIRED_FEATURES" ]]; then
         echo "Testing $PACKAGE with all features: $REQUIRED_FEATURES,$all_features"
-        cargo clippy -p "$PACKAGE" --all-targets --no-default-features --features "$REQUIRED_FEATURES,$all_features" --profile="$PROFILE" -- -D warnings || echo "All features failed for $PACKAGE"
+        (set -x; cargo clippy -p "$PACKAGE" --all-targets --no-default-features --features "$REQUIRED_FEATURES,$all_features" --profile="$PROFILE" -- -D warnings || echo "All features failed for $PACKAGE")
     else
         echo "Testing $PACKAGE with all features: $all_features"
-        cargo clippy -p "$PACKAGE" --all-targets --no-default-features --features "$all_features" --profile="$PROFILE" -- -D warnings || echo "All features failed for $PACKAGE"
+        (set -x; cargo clippy -p "$PACKAGE" --all-targets --no-default-features --features "$all_features" --profile="$PROFILE" -- -D warnings || echo "All features failed for $PACKAGE")
     fi
 fi
